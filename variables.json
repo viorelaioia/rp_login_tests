@@ -1,0 +1,12 @@
+{
+  "ldap_user": {
+    "email": "",
+    "password": "",
+    "secret_seed": ""
+    },
+  "RPs_urls": {
+    "reps": "",
+    "slack": "",
+    "moderator": ""
+   }
+}
