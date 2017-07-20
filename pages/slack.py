@@ -21,6 +21,7 @@ class Slack(Base):
         self.selenium.find_element(*self._sign_in_button).click()
         auth = Auth0(self.selenium)
         auth.login_with_ldap(email, password, passcode, ldap_only=True)
+        self.wait_for_element_visible(*self._username_locator)
 
     def logout(self):
         self.selenium.find_element(*self._username_locator).click()
