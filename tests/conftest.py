@@ -1,5 +1,6 @@
 import pytest
 import pyotp
+import requests
 
 
 @pytest.fixture
@@ -15,11 +16,22 @@ def ldap(variables):
 
 
 @pytest.fixture
-def passcode(secret_seed):
-    totp = pyotp.TOTP(secret_seed)
-    return totp.now()
+def passcode(secret_seed, counter):
+    hotp = pyotp.HOTP(secret_seed)
+    return hotp.at(counter)
 
 
 @pytest.fixture
 def urls(variables):
     return variables['RPs_urls']
+
+
+@pytest.fixture
+def counter_api(variables):
+    return variables['counter_API_endpoint']
+
+
+@pytest.fixture
+def increase_otp_counter(counter_api):
+    r = requests.get(counter_api)
+    return r.json()
