@@ -7,7 +7,12 @@
   "RPs_urls": {
     "reps": "",
     "slack": "",
-    "moderator": ""
+    "moderator": "",
+    "standups": "",
+    "discourse": "",
+    "mozillians": "",
+    "sso_dashboard": "",
+    "servicenow_stage": ""
    },
   "counter_API_endpoint": ""
 }
