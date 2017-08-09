@@ -16,6 +16,7 @@ pipeline {
   environment {
     VARIABLES = credentials('LOGIN_TESTS_VARIABLES')
     PYTEST_ADDOPTS =
+      "-n=auto " +
       "--tb=short " +
       "--driver=SauceLabs " +
       "--variables=capabilities.json " +

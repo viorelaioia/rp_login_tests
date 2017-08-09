@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 from pages.auth0 import Auth0
 from pages.base import Base
+from pages.two_factor_authentication import TwoFactorAuthentication
 
 
 class SsoDashboard(Base):
@@ -17,9 +18,10 @@ class SsoDashboard(Base):
     def is_profile_icon_displayed(self):
         return self.is_element_visible(*self._profile_icon_locator)
 
-    def login_with_ldap(self, email, password, passcode):
+    def login_with_ldap(self, email, password):
         auth = Auth0(self.selenium)
-        auth.login_with_ldap(email, password, passcode)
+        auth.login_with_ldap(email, password)
+        return TwoFactorAuthentication(self.selenium)
 
     def logout(self):
         self.selenium.find_element(*self._profile_icon_locator).click()

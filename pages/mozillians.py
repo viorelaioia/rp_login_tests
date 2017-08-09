@@ -3,6 +3,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.auth0 import Auth0
 from pages.base import Base
+from pages.two_factor_authentication import TwoFactorAuthentication
 
 
 class Mozillians(Base):
@@ -24,10 +25,11 @@ class Mozillians(Base):
     def is_username_displayed(self):
         return self.is_element_visible(*self._username_locator)
 
-    def login_with_ldap(self, email, password, passcode):
+    def login_with_ldap(self, email, password):
         self.selenium.find_element(*self._sign_in_button).click()
         auth = Auth0(self.selenium)
-        auth.login_with_ldap(email, password, passcode)
+        auth.login_with_ldap(email, password)
+        return TwoFactorAuthentication(self.selenium)
 
     def click_options(self):
         self.selenium.find_element(*self._profile_menu_locator).click()

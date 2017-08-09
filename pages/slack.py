@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 from pages.auth0 import Auth0
 from pages.base import Base
+from pages.two_factor_authentication import TwoFactorAuthentication
 
 
 class Slack(Base):
@@ -17,11 +18,11 @@ class Slack(Base):
     def is_username_displayed(self):
         return self.is_element_visible(*self._username_locator)
 
-    def login_with_ldap(self, email, password, passcode):
+    def login_with_ldap(self, email, password):
         self.selenium.find_element(*self._sign_in_button).click()
         auth = Auth0(self.selenium)
-        auth.login_with_ldap(email, password, passcode, ldap_only=True)
-        self.wait_for_element_visible(*self._username_locator)
+        auth.login_with_ldap(email, password, ldap_only=True)
+        return TwoFactorAuthentication(self.selenium)
 
     def logout(self):
         self.selenium.find_element(*self._username_locator).click()
