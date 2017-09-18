@@ -6,7 +6,6 @@ from pages.two_factor_authentication import TwoFactorAuthentication
 
 
 class ServiceNowStage(Base):
-
     _profile_icon_locator = (By.CSS_SELECTOR, '.sub-avatar')
     _logout_button_locator = (By.CSS_SELECTOR, 'a[href*="/logout"]')
 

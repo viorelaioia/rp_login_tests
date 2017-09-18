@@ -16,7 +16,8 @@ from tests import conftest
 
 class TestLogin:
 
-    @pytest.mark.parametrize('url', ['https://reps.allizom.org/', 'https://reps.mozilla.org/'])
+    @pytest.mark.parametrize('url', ['https://web-remo-staging.production.paas.mozilla.community/',
+                                     'https://reps.mozilla.org/'])
     def test_login_reps(self, selenium, ldap, url, counter_api):
         test = Reps(selenium, url)
         two_factor_authentication = test.login_with_ldap(ldap['email'], ldap['password'])
@@ -76,7 +77,8 @@ class TestLogin:
         assert test.is_avatar_displayed
         test.logout()
 
-    @pytest.mark.parametrize('url', ['https://web-mozillians-staging.production.paas.mozilla.community/', 'https://mozillians.org/'])
+    @pytest.mark.parametrize('url', ['https://web-mozillians-staging.production.paas.mozilla.community/',
+                                     'https://mozillians.org/'])
     def test_login_mozillians(self, selenium, ldap, url, counter_api):
         test = Mozillians(selenium, url)
         two_factor_authentication = test.login_with_ldap(ldap['email'], ldap['password'])

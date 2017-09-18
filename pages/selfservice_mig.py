@@ -4,7 +4,6 @@ from pages.two_factor_authentication import TwoFactorAuthentication
 
 
 class SelfServiceMig(Base):
-
     def __init__(self, selenium, url):
         super(SelfServiceMig, self).__init__(selenium)
         self.go_to_url(url)
