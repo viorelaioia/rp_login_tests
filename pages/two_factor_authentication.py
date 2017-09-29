@@ -1,10 +1,10 @@
 from selenium.common.exceptions import NoSuchFrameException
 from selenium.webdriver.common.by import By
 
-from pages.base import Base
+from pages.page import Page
 
 
-class TwoFactorAuthentication(Base):
+class TwoFactorAuthentication(Page):
     _enter_passcode_button = (By.CSS_SELECTOR, '.passcode-label .positive.auth-button')
     _passcode_field_locator = (By.CSS_SELECTOR, '.passcode-label input[name="passcode"]')
     _error_message_locator = (By.CSS_SELECTOR, '.message.error')
