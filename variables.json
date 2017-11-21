@@ -5,14 +5,15 @@
     "secret_seed": ""
     },
   "RPs_urls": {
-    "reps": "",
     "slack": "",
-    "moderator": "",
     "standups": "",
-    "discourse": "",
-    "mozillians": "",
-    "sso_dashboard": "",
-    "servicenow_stage": ""
+    "biztera": "",
+    "selfservice_mig": "",
+    "testrp": "",
+    "mozdatacollective": "",
+    "smartsheet": "",
+    "taskcluster": "",
+    "greenhouse": ""
    },
   "counter_API_endpoint": ""
 }

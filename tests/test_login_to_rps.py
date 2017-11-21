@@ -2,6 +2,8 @@ import pytest
 
 from pages.biztera import Biztera
 from pages.discourse import Discourse
+from pages.greenhouse import Greenhouse
+from pages.mana import Mana
 from pages.moderator import Moderator
 from pages.mozdatacollective import MozDataCollective
 from pages.mozillians import Mozillians
@@ -10,6 +12,7 @@ from pages.reps import Reps
 from pages.selfservice_mig import SelfServiceMig
 from pages.servicenow import ServiceNow
 from pages.slack import Slack
+from pages.smartsheet import Smartsheet
 from pages.sso_dashboard import SsoDashboard
 from pages.standups import Standups
 from pages.testrp import TestRp
@@ -134,8 +137,9 @@ class TestLogin:
         assert test.is_logout_button_displayed
         test.click_logout()
 
-    def test_login_phonebook(self, selenium, ldap, urls, counter_api):
-        test = Phonebook(selenium, urls['phonebook'])
+    @pytest.mark.parametrize('url', ['https://phonebook.allizom.org/', 'https://phonebook.mozilla.org/'])
+    def test_login_phonebook(self, selenium, ldap, url, counter_api):
+        test = Phonebook(selenium, url)
         two_factor_authentication = test.login_with_ldap(ldap['email'], ldap['password'])
         two_factor_authentication.enter_passcode(conftest.passcode(ldap['secret_seed'], counter_api))
         if two_factor_authentication.is_error_message_displayed:
@@ -149,4 +153,32 @@ class TestLogin:
         if two_factor_authentication.is_error_message_displayed:
             two_factor_authentication.enter_passcode(conftest.passcode(ldap['secret_seed'], counter_api))
         assert test.is_user_menu_displayed
+        test.sign_out()
+
+    @pytest.mark.parametrize('url', ['https://mana.allizom.org/', 'https://mana.mozilla.org/'])
+    def test_login_mana(self, selenium, ldap, url, counter_api):
+        test = Mana(selenium, url)
+        two_factor_authentication = test.login_with_ldap(ldap['email'], ldap['password'])
+        two_factor_authentication.enter_passcode(conftest.passcode(ldap['secret_seed'], counter_api))
+        if two_factor_authentication.is_error_message_displayed:
+            two_factor_authentication.enter_passcode(conftest.passcode(ldap['secret_seed'], counter_api))
+        assert test.is_user_menu_displayed
+        test.logout()
+
+    def test_login_smartsheet(self, selenium, ldap, urls, counter_api):
+        test = Smartsheet(selenium, urls['smartsheet'])
+        two_factor_authentication = test.login_with_ldap(ldap['email'], ldap['password'])
+        two_factor_authentication.enter_passcode(conftest.passcode(ldap['secret_seed'], counter_api))
+        if two_factor_authentication.is_error_message_displayed:
+            two_factor_authentication.enter_passcode(conftest.passcode(ldap['secret_seed'], counter_api))
+        assert test.is_user_menu_displayed
+        test.logout()
+
+    def test_login_greenhouse(self, selenium, ldap, urls, counter_api):
+        test = Greenhouse(selenium, urls['greenhouse'])
+        two_factor_authentication = test.login_with_ldap(ldap['email'], ldap['password'])
+        two_factor_authentication.enter_passcode(conftest.passcode(ldap['secret_seed'], counter_api))
+        if two_factor_authentication.is_error_message_displayed:
+            two_factor_authentication.enter_passcode(conftest.passcode(ldap['secret_seed'], counter_api))
+        assert test.is_support_link_displayed
         test.sign_out()
